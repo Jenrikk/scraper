@@ -49,16 +49,22 @@ console.log(dish);
     await page.locator('[id="edit-submit-wyniki-wyszukiwania"]').click();
     // Selects ALL the recipes
     const content = page.locator('[class="field field-name-title field-type-ds field-label-hidden"]');
-    // 
+    // Selects the FIRST recipe, searches the first <a href="url">Link</a> and clicks on it
     await content.first().locator('a:visible').click();
-    // console.log(content);
-    const ingredients = await page.locator('[class="field field-name-field-skladniki field-type-text-long field-label-hidden"]');
+    // you can also select second, third, etc recipe:
+    // await content.nth(2).locator('a:visible').click();
+    
+    // After clicking (above line), our "page" has changed
+    // Selects the DIV that contains the ingredients:
+    const ingredients = page.locator('[class="field field-name-field-skladniki field-type-text-long field-label-hidden"]');
+    // Optional step, in case of the screenshot is needed 
     // await ingredients.scrollIntoViewIfNeeded();
     const ingredients_text = await ingredients.textContent();
 
-    const preparation = await page.locator('[class="group-przepis field-group-div"]');
-    await preparation.scrollIntoViewIfNeeded();
-    const preparation_text = await preparation.textContent();
+    // // Selects the DIV that contains the steps:
+    const steps = page.locator('[class="group-przepis field-group-div"]');
+    await steps.scrollIntoViewIfNeeded();
+    const preparation_text = await steps.textContent();
 
     console.log(ingredients_text);
     console.log(preparation_text);
