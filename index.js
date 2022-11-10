@@ -43,10 +43,13 @@ console.log(dish);
     const browser = await chromium.launch();
     const page = await browser.newPage();
     await page.goto('https://www.kwestiasmaku.com/');
+    // Selects the input field and type the ingredient
     await page.locator('[name="search_api_views_fulltext"]').type(dish);
+    // Selects the search/submit and clicks on it
     await page.locator('[id="edit-submit-wyniki-wyszukiwania"]').click();
-    const content = await page.locator('[class="field field-name-title field-type-ds field-label-hidden"]');
-    // await content.first().click();
+    // Selects ALL the recipes
+    const content = page.locator('[class="field field-name-title field-type-ds field-label-hidden"]');
+    // 
     await content.first().locator('a:visible').click();
     // console.log(content);
     const ingredients = await page.locator('[class="field field-name-field-skladniki field-type-text-long field-label-hidden"]');
